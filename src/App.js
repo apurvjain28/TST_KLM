@@ -25,6 +25,7 @@ const DUMMY_DATA = [
     Identifier: "9346",
     "First Name": "Mary",
     "Last Name": "Jenkins",
+    VIP: "false",
   },
   {
     Username: "smith79",
@@ -37,7 +38,9 @@ const DUMMY_DATA = [
 
 const extractUniqueHeaders = (data) => {
   let allKeys = [];
-  data.map((item) => allKeys.push(...Object.keys(item)));
+  data.map((item) => {
+    return allKeys.push(...Object.keys(item));
+  });
   return [...new Set(allKeys)];
 };
 let headers = extractUniqueHeaders(DUMMY_DATA);
@@ -88,11 +91,14 @@ function App() {
         {sortedData().map((item, index) => {
           return (
             <tr key={index} align="center">
-              <td>{item[headers[0]]}</td>
+              {Object.keys(item).map((key) => {
+                return <td>{item[key]}</td>;
+              })}
+              {/* <td>{item[headers[0]]}</td>
               <td>{item[headers[1]]}</td>
               <td>{item[headers[2]]}</td>
               <td>{item[headers[3]]}</td>
-              <td>{item[headers[4]]}</td>
+              <td>{item[headers[4]]}</td> */}
             </tr>
           );
         })}
